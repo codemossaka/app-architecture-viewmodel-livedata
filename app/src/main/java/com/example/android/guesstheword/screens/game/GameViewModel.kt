@@ -46,6 +46,7 @@ class GameViewModel : ViewModel() {
     private val timer: CountDownTimer
 
     private val _currentTime = MutableLiveData<Long>()
+
     val currentTime: LiveData<Long>
         get() = _currentTime
 
@@ -161,7 +162,7 @@ class GameViewModel : ViewModel() {
     /** Methods for completed events **/
 
     fun onGameFinishComplete() {
-        _eventGameFinish.value = false
+        _eventGameFinish.value = true
     }
 
     fun onBuzzComplete() {
