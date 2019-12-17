@@ -31,40 +31,23 @@ class GameFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
-        viewModel.score.observe(this, Observer { newScore ->
-            binding.scoreText.text = newScore.toString()
+        binding.gameViewModel = viewModel
+
+        binding.lifecycleOwner = this
+
+        // Sets up event listening to navigate the player when the game is finished
+        viewModel.eventGameFinish.observe(this, Observer { isFinished ->
+            if (isFinished) {
+                val currentScore = viewModel.score.value ?: 0
+                val action = GameFragmentDirections.actionGameToScore(currentScore)
+                findNavController(this).navigate(action)
+                viewModel.onGameFinishComplete()
+            }
         })
 
-        viewModel.word.observe(this, Observer { newWord ->
-            binding.wordText.text = newWord
-        })
-
-        viewModel.eventGameFinish.observe(this, Observer<Boolean> { hasFinished ->
-            if (hasFinished) gameFinished()
-        })
-
-
-        binding.correctButton.setOnClickListener {
-            viewModel.onCorrect()
-        }
-        binding.skipButton.setOnClickListener {
-            viewModel.onSkip()
-        }
 
         return binding.root
 
-    }
-
-
-    /**
-     * Called when the game is finished
-     */
-    private fun gameFinished() {
-        Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value?:0)
-        findNavController(this).navigate(action)
-
-        viewModel.onGameFinishComplete()
     }
 
 
