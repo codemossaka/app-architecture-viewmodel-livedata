@@ -39,14 +39,13 @@ class GameViewModel : ViewModel() {
         private const val ONE_SECOND = 1000L
 
         // This is the total time of the game
-        private const val COUNTDOWN_TIME = 60000L
+        private const val COUNTDOWN_TIME = 30000L
 
     }
 
     private val timer: CountDownTimer
 
     private val _currentTime = MutableLiveData<Long>()
-
     val currentTime: LiveData<Long>
         get() = _currentTime
 
@@ -110,27 +109,27 @@ class GameViewModel : ViewModel() {
      */
     private fun resetList() {
         wordList = mutableListOf(
-                "queen",
-                "hospital",
+                "Bible",
+                "Hopital",
                 "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
+                "Chat",
+                "Amour(Perroquet)",
+                "Dieu",
+                "La mer",
+                "Soif",
+                "Triste",
+                "Joyeux",
+                "Saint-Esprit",
+                "Vent",
+                "Train",
+                "Chien",
+                "Travail",
+                "Mariage",
+                "Monde",
+                "Péché",
+                "Sac",
+                "Robe",
+                "Sainteté"
         )
         wordList.shuffle()
     }
@@ -162,7 +161,7 @@ class GameViewModel : ViewModel() {
     /** Methods for completed events **/
 
     fun onGameFinishComplete() {
-        _eventGameFinish.value = true
+        _eventGameFinish.value = false
     }
 
     fun onBuzzComplete() {
